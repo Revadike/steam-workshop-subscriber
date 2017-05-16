@@ -1,6 +1,11 @@
 var fs = require("fs"),
+ReadLine = require("readline"),
 SteamCommunity = require("steamcommunity");
 const community = new SteamCommunity();
+const rl = ReadLine.createInterface({
+	"input": process.stdin,
+	"output": process.stdout
+});
 const config = JSON.parse(fs.readFileSync("config.json"));
 
 var log = console.log;
@@ -49,12 +54,18 @@ function steamLogin() {
 			}
 			if (err.message == 'SteamGuard') {
 				console.log("An email has been sent to your address at " + err.emaildomain);
-				process.exit();
+				rl.question("Steam Guard Code: ", function(code) {
+                    config.steam_credentials.authCode = code;
+					steamLogin();
+				});
 				return;
 			}
 			if (err.message == 'CAPTCHA') {
 				console.log(err.captchaurl);
-				process.exit();
+				rl.question("CAPTCHA: ", function(captchaInput) {
+					config.steam_credentials.captcha = captchaInput;
+                    steamLogin();
+				});
 				return;
 			}
 			console.log(err);
@@ -116,11 +127,11 @@ function steamLogin() {
                                                 console.log("ALL DONE!")
                                             }
                                         });
-                                    }, 0);
+                                    }, done * config.delay);
                                 });
                             }
                         });
-                    }, 0);
+                    }, page * config.delay);
                 }
             }            
         });
