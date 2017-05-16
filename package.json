@@ -9,7 +9,7 @@
     "main": "index.js",
     "dependencies": {
         "fs": "latest",
-        "winauth": "latest",
+        "steamauth": "latest",
         "steamcommunity": "latest"
     }
 }
