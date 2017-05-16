@@ -10,5 +10,6 @@
         "identity_secret": "IF_USAGE_YOUR_WINAUTH_IDENTITY_SECRET"
     },
     "appid": 0,
-    "filters": "&browsesort=mostrecent&section=readytouseitems&actualsort=mostrecent"
+    "filters": "&browsesort=mostrecent&section=readytouseitems&actualsort=mostrecent",
+    "delay": 0
 }
